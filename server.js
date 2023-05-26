@@ -24,13 +24,10 @@ app.use('/api/toumi',pcProductsRoutes)
 app.get(`api/config/paypal`,(req,res)=>
     res.send(process.env.PAYPAL_CLIENT_ID)
 )
-// Enable CORS for all routes
-app.use(cors());
-
-// Set specific origin
+//midleware 
 app.use(cors({
-  origin: 'https://frontend-2-426d.onrender.com',
-}));
+    origin:["http://localhost:3000","https://frontend1-0ah7.onrender.com"]
+}))
 app.use(notFound)
 app.use(errorHandler)
 app.use((req,res,next)=>{
