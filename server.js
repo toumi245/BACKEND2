@@ -17,6 +17,10 @@ dotenv.config()
 connectDB()
 const app=express()
 app.use(express.json())
+//midleware 
+app.use(cors({
+    origin:["http://localhost:3000","https://frontend-2-426d.onrender.com"]
+}))
 app.use('/api/products',productRoutes)
 app.use('/api/users',userRoutes)
 app.use('/api/orders',orderRoutes)
@@ -24,10 +28,7 @@ app.use('/api/toumi',pcProductsRoutes)
 app.get(`api/config/paypal`,(req,res)=>
     res.send(process.env.PAYPAL_CLIENT_ID)
 )
-//midleware 
-app.use(cors({
-    origin:["http://localhost:3000","https://frontend-2-426d.onrender.com"]
-}))
+
 app.use(notFound)
 app.use(errorHandler)
 app.use((req,res,next)=>{
