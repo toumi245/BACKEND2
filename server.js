@@ -9,7 +9,7 @@ import productRoutes from './routes/productRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 import orderRoutes from './routes/orderRoutes.js'
 import pcProductsRoutes from './routes/pcProductsRoutes.js'
-
+import cors from 'cors'
 import connectDB from './config/db.js'
 import { Error } from 'mongoose'
 import pcProducts from './data/pcproducts.js'
@@ -24,7 +24,13 @@ app.use('/api/toumi',pcProductsRoutes)
 app.get(`api/config/paypal`,(req,res)=>
     res.send(process.env.PAYPAL_CLIENT_ID)
 )
+// Enable CORS for all routes
+app.use(cors());
 
+// Set specific origin
+app.use(cors({
+  origin: 'https://frontend-2-426d.onrender.com',
+}));
 app.use(notFound)
 app.use(errorHandler)
 app.use((req,res,next)=>{
